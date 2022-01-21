@@ -398,18 +398,18 @@ namespace op
             if (!keypoints.empty())
             {
                 const auto numberPeople = keypoints.getSize(0);
-                auto biggestPoseIndex = -1;
-                auto biggestArea = T(-1);
+                auto smallestPoseIndex = -1;
+                auto smallestArea = T(-1);
                 for (auto person = 0 ; person < numberPeople ; person++)
                 {
                     const auto newPersonArea = getKeypointsArea(keypoints, person, threshold);
-                    if (newPersonArea > biggestArea)
+                    if (newPersonArea < smallestArea)
                     {
-                        biggestArea = newPersonArea;
-                        biggestPoseIndex = person;
+                        smallestArea = newPersonArea;
+                        smallestPoseIndex = person;
                     }
                 }
-                return biggestPoseIndex;
+                return smallestPoseIndex;
             }
             else
                 return -1;
